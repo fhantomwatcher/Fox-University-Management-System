@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="src/GUI/Resources/icon/fox.png" alt="Fox University Logo" width="120"/>
+  <img src="src/GUI/Resources/readme logo/foxbg.png" alt="Fox University Logo" width="120"/>
   <p align="center" style="color: orange; font-size: 20px;">
-  Fox University Management System
+  <b>Fox University Management System</b>
   </p>
 </p>
 
