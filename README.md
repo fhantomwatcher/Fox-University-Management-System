@@ -87,7 +87,7 @@ lib/
 
 ## Authors
 
-- ## Fhantom Watcher
+- **Fhantom Watcher**
 
 ## License
 
