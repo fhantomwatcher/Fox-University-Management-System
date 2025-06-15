@@ -458,14 +458,14 @@ public class RegistrationPanel extends JPanel {
     private boolean isValidAge(String age) {
         try {
             int ageValue = Integer.parseInt(age);
-            return ageValue >= 16 && ageValue <= 100;
+            return ageValue >= 10 && ageValue <= 100;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
     private boolean isValidName(String name) {
-        return name != null && name.trim().length() >= 2 && name.matches("^[a-zA-Z\\s]+$");
+        return name != null && name.trim().length() >= 1 && name.matches("^[a-zA-Z\\s]+$");
     }
 
     private String getSelectedGender(ButtonGroup genderGroup) {
@@ -485,13 +485,13 @@ public class RegistrationPanel extends JPanel {
         // Validate name
         String name = studentNameField.getText().trim();
         if (!isValidName(name)) {
-            errors.append("• Name must be at least 2 characters and contain only letters\n");
+            errors.append("• Name must be at least 1 characters and contain only letters\n");
         }
 
         // Validate age
         String age = studentAgeField.getText().trim();
         if (!isValidAge(age)) {
-            errors.append("• Age must be a number between 16 and 100\n");
+            errors.append("• Age must be a number between 10 and 100\n");
         }
 
         // Validate email
@@ -507,13 +507,13 @@ public class RegistrationPanel extends JPanel {
 
         // Validate address
         String address = studentAddressArea.getText().trim();
-        if (address.length() < 10) {
+        if (address.length() < 5) {
             errors.append("• Address must be at least 10 characters long\n");
         }
 
         if (errors.length() > 0) {
             JOptionPane.showMessageDialog(this, 
-                "Please fix the following errors:\n\n" + errors.toString(), 
+                "Please fill the sections as directed:\n\n" + errors.toString(), 
                 "Validation Error", 
                 JOptionPane.ERROR_MESSAGE);
             return false;
@@ -527,13 +527,13 @@ public class RegistrationPanel extends JPanel {
         // Validate name
         String name = teacherNameField.getText().trim();
         if (!isValidName(name)) {
-            errors.append("• Name must be at least 2 characters and contain only letters\n");
+            errors.append("• Name must be at least 1 characters and contain only letters\n");
         }
 
         // Validate age
         String age = teacherAgeField.getText().trim();
         if (!isValidAge(age)) {
-            errors.append("• Age must be a number between 16 and 100\n");
+            errors.append("• Age must be a number between 10 and 100\n");
         }
 
         // Validate email
@@ -549,13 +549,13 @@ public class RegistrationPanel extends JPanel {
 
         // Validate address
         String address = teacherAddressArea.getText().trim();
-        if (address.length() < 10) {
+        if (address.length() < 5) {
             errors.append("• Address must be at least 10 characters long\n");
         }
 
         if (errors.length() > 0) {
             JOptionPane.showMessageDialog(this, 
-                "Please fix the following errors:\n\n" + errors.toString(), 
+                "Please fill the sections as directed:\n\n" + errors.toString(), 
                 "Validation Error", 
                 JOptionPane.ERROR_MESSAGE);
             return false;
@@ -600,7 +600,7 @@ public class RegistrationPanel extends JPanel {
                 student.getRegistrationDate()
             );
 
-            JOptionPane.showMessageDialog(this, message, "Registration Successful", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, message, "Student Registration Successful", JOptionPane.INFORMATION_MESSAGE);
 
             // Clear form after successful registration
             clearStudentForm();
@@ -654,7 +654,7 @@ public class RegistrationPanel extends JPanel {
                 teacher.getRegistrationDate()
             );
 
-            JOptionPane.showMessageDialog(this, message, "Registration Successful", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, message, "Teacher Registration Successful", JOptionPane.INFORMATION_MESSAGE);
 
             // Clear form after successful registration
             clearTeacherForm();
