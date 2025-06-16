@@ -7,7 +7,6 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
-// import java.awt.image.BufferedImage;
 
 public class TeacherPanel extends JPanel {
     private Map<String, List<Teacher>> departmentTeachers = new HashMap<>();

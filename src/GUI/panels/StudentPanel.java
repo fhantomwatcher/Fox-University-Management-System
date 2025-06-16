@@ -7,7 +7,6 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
-// import java.awt.image.BufferedImage;
 
 public class StudentPanel extends JPanel {
     private Map<String, List<Student>> departmentStudents = new HashMap<>();
@@ -360,20 +359,7 @@ public class StudentPanel extends JPanel {
         return photoLabel;
     }
 
-    // private JLabel createDetailLabel(String text) {
-    //     JLabel label = new JLabel(text);
-    //     label.setFont(new Font("Arial", Font.PLAIN, 13));
-    //     label.setForeground(new Color(60, 60, 60));
-    //     label.setAlignmentX(Component.LEFT_ALIGNMENT);
-    //     return label;
-    // }
 
-    // private String truncateText(String text, int maxLength) {
-    //     if (text.length() <= maxLength) {
-    //         return text;
-    //     }
-    //     return text.substring(0, maxLength - 3) + "...";
-    // }
 
     private void filterByDepartment() {
         String selected = (String) departmentFilter.getSelectedItem();

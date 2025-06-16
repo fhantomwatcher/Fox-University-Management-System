@@ -10,7 +10,7 @@ public class SysGUI extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel contentPanel;
-    private NavigationPanel navigationPanel; // ✅ Keep reference to highlight on startup
+    private NavigationPanel navigationPanel; //  Keep reference to highlight on startup
 
     public SysGUI() {
         setTitle("Fox University Management System");
