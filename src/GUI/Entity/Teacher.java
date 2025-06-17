@@ -82,6 +82,39 @@ public class Teacher extends Person {
         }
     }
     
+    @Override
+    public void deleteFromCSV(String teacherId) {
+        File inputFile = new File(CSV_FILE);
+        File tempFile = new File(CSV_FILE + ".tmp");
+
+        try (
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            PrintWriter writer = new PrintWriter(new FileWriter(tempFile))
+        ) {
+            String line;
+            boolean isFirstLine = true;
+            while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    writer.println(line); // header
+                    isFirstLine = false;
+                    continue;
+                }
+                String[] data = line.split(",");
+                if (data.length > 0 && !data[0].equals(teacherId)) {
+                    writer.println(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error deleting teacher: " + e.getMessage());
+            return;
+        }
+
+        // Replace original file with temp file
+        if (!inputFile.delete() || !tempFile.renameTo(inputFile)) {
+            System.err.println("Error updating teacher file after deletion.");
+        }
+    }
+    
     // Static method to read all teachers from CSV
     public static java.util.List<Teacher> loadAllFromCSV() {
         java.util.List<Teacher> teachers = new java.util.ArrayList<>();

@@ -75,6 +75,39 @@ public class Student extends Person {
         }
     }
     
+    @Override
+    public void deleteFromCSV(String studentId) {
+        File inputFile = new File(CSV_FILE);
+        File tempFile = new File(CSV_FILE + ".tmp");
+
+        try (
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            PrintWriter writer = new PrintWriter(new FileWriter(tempFile))
+        ) {
+            String line;
+            boolean isFirstLine = true;
+            while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    writer.println(line); // header
+                    isFirstLine = false;
+                    continue;
+                }
+                String[] data = parseCSVLine(line);
+                if (data.length > 0 && !data[0].equals(studentId)) {
+                    writer.println(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error deleting student: " + e.getMessage());
+            return;
+        }
+
+        // Replace original file with temp file
+        if (!inputFile.delete() || !tempFile.renameTo(inputFile)) {
+            System.err.println("Error updating student file after deletion.");
+        }
+    }
+    
     // Static method to read all students from CSV
     public static java.util.List<Student> loadAllFromCSV() {
         java.util.List<Student> students = new java.util.ArrayList<>();

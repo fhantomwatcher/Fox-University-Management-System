@@ -303,6 +303,30 @@ public class StudentPanel extends JPanel {
         card.add(photoLabel, BorderLayout.WEST);
         card.add(infoPanel, BorderLayout.CENTER);
 
+        // --- Add Delete Button at bottom right ---
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        buttonPanel.setOpaque(false);
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setBackground(new Color(192, 57, 43));
+        deleteButton.setFocusPainted(false);
+        deleteButton.setFont(new Font("Arial", Font.BOLD, 12));
+        deleteButton.setPreferredSize(new Dimension(80, 28));
+        deleteButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete this student?\n" + student.getName(),
+                "Delete Confirmation",
+                JOptionPane.YES_NO_OPTION
+            );
+            if (confirm == JOptionPane.YES_OPTION) {
+                student.deleteFromCSV(student.getStudentId()); // Use the entity method
+                refreshData();
+            }
+        });
+        buttonPanel.add(deleteButton);
+        card.add(buttonPanel, BorderLayout.SOUTH);
+
         // Hover effect
         card.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -435,5 +459,44 @@ public class StudentPanel extends JPanel {
         public String getAddress() { return address; }
         public String getPhotoPath() { return photoPath; }
         public String getRegistrationDate() { return registrationDate; }
+
+        // Method to delete a student from the CSV file by studentId
+        public void deleteFromCSV(String studentId) {
+            String csvFilePath = "src/userdata/students.csv";
+            File inputFile = new File(csvFilePath);
+            File tempFile = new File(csvFilePath + ".tmp");
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                 BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+                String currentLine;
+                boolean isFirstLine = true;
+
+                while ((currentLine = reader.readLine()) != null) {
+                    if (isFirstLine) {
+                        writer.write(currentLine);
+                        writer.newLine();
+                        isFirstLine = false;
+                        continue;
+                    }
+                    List<String> data = StudentPanel.parseCSVLine(currentLine);
+                    if (data.size() > 0 && !data.get(0).trim().equals(studentId)) {
+                        writer.write(currentLine);
+                        writer.newLine();
+                    }
+                }
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error deleting student: " + e.getMessage());
+                return;
+            }
+
+            if (!inputFile.delete()) {
+                JOptionPane.showMessageDialog(null, "Could not delete original student file.");
+                return;
+            }
+            if (!tempFile.renameTo(inputFile)) {
+                JOptionPane.showMessageDialog(null, "Could not rename temp file to student file.");
+            }
+        }
     }
 }

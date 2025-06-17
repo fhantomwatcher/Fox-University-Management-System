@@ -84,6 +84,7 @@ public abstract class Person {
     public abstract String generateId();
     public abstract String getCSVHeader();
     public abstract String toCSVString();
+    public abstract void deleteFromCSV(String id);
     
     // Getters
     public String getId() { return id; }
