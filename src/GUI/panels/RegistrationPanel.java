@@ -1,5 +1,6 @@
 package GUI.panels;
 
+import java.lang.*;
 import GUI.Entity.Student;
 import GUI.Entity.Teacher;
 import javax.swing.*;

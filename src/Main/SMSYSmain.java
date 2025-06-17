@@ -1,5 +1,6 @@
 package Main;
 
+import java.lang.*;
 import GUI.SysGUI;
 
 
