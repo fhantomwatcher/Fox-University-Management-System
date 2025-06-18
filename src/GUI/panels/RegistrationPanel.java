@@ -514,7 +514,7 @@ public class RegistrationPanel extends JPanel {
         if (errors.length() > 0) {
             JOptionPane.showMessageDialog(this, 
                 "Please fill the sections as directed:\n\n" + errors.toString(), 
-                "Validation Error", 
+                "Error snap", 
                 JOptionPane.ERROR_MESSAGE);
             return false;
         }
